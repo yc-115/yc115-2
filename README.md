@@ -1,48 +1,31 @@
-這是一個整合 React、Gemini API 以及個人靜態網站的專案，旨在提供個性化的 AI 助手體驗。使用者可以選擇不同的情境（如心理輔助、興趣探索、程式開發）與 AI 助手互動，獲得建議、鼓勵或技術支援。
+# 🌟 我的個人 AI 助手網站
 
 ---
 
-## ⚙️ 使用的技術與 API
+## 📝 專案簡介與功能說明
+這是一個使用 **React** 開發的個人網站整合專案，結合 **AI 聊天功能**，能與使用者互動、回答問題或提供建議。  
+主要功能包括：
 
-前端框架：React
-
-後端 API：Google Gemini API（用於生成文字回應）
-
-其他技術：HTML、CSS、JavaScript（整合靜態網站）
-
----
-
-## 🛠️ 安裝與執行方式
-
-下載專案
-<pre>git clone https://github.com/yc-115/yc115-2
-cd yc115-2</pre>
-
-安裝相依套件
-
-<pre>npm install</pre>
-
-
-啟動開發伺服器
-
-<pre>npm start</pre>
-
-預設會在 http://localhost:3000
- 開啟應用程式。
-
-設定 Gemini API 金鑰
-
-前往 Google AI Studio
- 申請 API 金鑰。
-
-在專案根目錄下建立 .env 檔案，並加入以下內容：
-
-<pre>REACT_APP_GEMINI_API_KEY=你的_API_金鑰</pre>
+- **個人資訊與作品展示**（整合原本的靜態網站 HTML/CSS/JS）  
+- **AI 聊天助手**，可選擇不同情境：
+  - 🧠 **情緒 / 心理輔助助手**：傾聽、鼓勵、提供建議  
+  - 🎵 **興趣 / 專屬話題助手**：音樂、KPOP、鉤織相關  
+  - 💻 **程式開發助理**：程式撰寫、除錯、邏輯解釋  
+- 即時互動，顯示使用者訊息與 AI 回覆  
+- 清除對話、快速範例問題按鈕  
 
 ---
 
-## 📝 注意事項
+## 🌐 使用的 API
+- **[Google Gemini API](https://developers.generativeai.google/)**：提供 AI 文字生成功能  
+- 可擴充其他公開 API，例如 OpenWeather、GitHub API、PokéAPI 等  
 
-請確保已正確設定 Gemini API 金鑰，否則無法正常使用 AI 生成服務。
+---
 
-若遇到任何問題，歡迎在 GitHub 提出 Issues，我會盡快回應。
+## ⚙️ 安裝與執行方式
+
+1. **Clone 專案**
+
+```bash
+git clone https://github.com/Lianin1/ITTI_HW3.git
+cd ITTI_HW3
