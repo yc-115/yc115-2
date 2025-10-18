@@ -24,8 +24,25 @@
 
 ## ⚙️ 安裝與執行方式
 
-1. **Clone 專案**
+1. **克隆專案**
 
 ```bash
-git clone https://github.com/Lianin1/ITTI_HW3.git
-cd ITTI_HW3
+git clone https://github.com/yc-115/yc115-2
+cd yc115-2
+```
+
+2. **安裝相依套件**
+
+```bash
+npm install
+```
+
+3. **啟動專案**
+
+```bash
+npm start
+```
+
+4. **瀏覽器開啟**
+
+預設開啟：http://localhost:3000
