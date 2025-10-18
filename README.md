@@ -20,20 +20,13 @@
 
 ## ⚙️ 安裝與執行方式
 
-1. **克隆專案**
-
-```bash
-git clone https://github.com/yc-115/yc115-2
-cd yc115-2
-```
-
-2. **安裝相依套件**
+1. **安裝相依套件**
 
 ```bash
 npm install
 ```
 
-3. **啟動專案**
+2. **啟動專案**
 
 ```bash
 npm start
