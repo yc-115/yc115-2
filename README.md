@@ -59,10 +59,10 @@ npm start
 ## 📸 畫面截圖
 
 首頁介面
-[首頁截圖](./scsh/Screenshot-home.png)
+![首頁截圖](./scsh/Screenshot-home.png)
 
 AI 聊天區
-[聊天截圖](./scsh/Screenshot-ai.png)
+![聊天截圖](./scsh/Screenshot-ai.png)
 
 ---
 
