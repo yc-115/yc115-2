@@ -22,7 +22,9 @@
 
 1. **克隆專案**
 
-```git clone https://github.com/yc-115/yc115-2.git```
+```bash
+git clone https://github.com/yc-115/yc115-2.git
+```
 
 2. **進入專案資料夾**
 
@@ -31,9 +33,17 @@ cd yc115-2
 cd web2
 ```
 
-3. **安裝相依套件** ```npm install```
+3. **安裝相依套件**
 
-4. **啟動專案** ```npm start```
+```bash
+npm install
+```
+
+4. **啟動專案**
+
+```bash 
+npm start
+```
 
 ---
 
