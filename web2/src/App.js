@@ -98,7 +98,7 @@ export default function AItest({ defaultModel = 'gemini-2.5-flash', starter = 'å
   }
 
   const styles = {
-    wrap: { height: '100vh', display: 'flex', background: '#f0f4f8' },
+    wrap: { width: '100%', height: '100%', display: 'flex', background: '#f0f4f8' },
     sidebar: {
       width: 300,
       background: '#fff',

@@ -436,34 +436,46 @@ body.dark .hero-bg {
 </style>
 
 <!-- AI 聊天小助手 -->
-<div id="ai-chat-root"><div class="chat-content">
+<div id="ai-chat-root">
     <!-- 聊天訊息或 React 元件渲染區域 -->
   </div>
-  <div class="chat-input">
     <input type="text" placeholder="輸入訊息..." />
   </div></div>
 
 <style>
-  #ai-chat-root {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 500px;      /* 小尺寸 */
-  height: 600px;     /* 高度可滾動 */
-  z-index: 1050;
-  border-radius: 12px;
-  overflow: hidden;  /* 容器邊界 */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  background: #fff;  /* 背景色 */
+#ai-chat-root {
+  margin-left: 250px;      /* 避開 sidebar */
+  width: calc(100% - 250px); /* 扣掉 sidebar 寬度 */
+  height: 100vh;           /* 跟 Hero 一樣高 */
+  border-radius: 0;
   display: flex;
   flex-direction: column;
+  background: #fff;        /* 可換喜歡顏色 */
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
-/* 滾動區域 */
+
+/* 滾動內容 */
 #ai-chat-root .chat-content {
-  flex: 1;           /* 佔滿剩餘高度 */
-  overflow-y: auto;  /* 垂直滾動 */
-  padding: 8px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
 }
+
+/* 輸入框固定在底部 */
+#ai-chat-root .chat-input {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #ccc;
+}
+
+#ai-chat-root .chat-input input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  outline: none;
+}
+
 </style>
 
 <!-- Typed.js -->
