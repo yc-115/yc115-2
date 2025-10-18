@@ -20,17 +20,20 @@
 
 ## ⚙️ 安裝與執行方式
 
-1. **安裝相依套件**
+1. **克隆專案**
+
+```git clone https://github.com/yc-115/yc115-2.git```
+
+2. **進入專案資料夾**
 
 ```bash
-npm install
+cd yc115-2
+cd web2
 ```
 
-2. **啟動專案**
+3. **安裝相依套件** ```npm install```
 
-```bash
-npm start
-```
+4. **啟動專案** ```npm start```
 
 ---
 
