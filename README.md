@@ -43,6 +43,8 @@ npm install
 npm start
 ```
 
-4. **瀏覽器開啟**
+---
 
-預設開啟：http://localhost:3000
+## 📝 注意事項
+
+請確保已正確設定 Gemini API 金鑰，否則無法正常使用 AI 生成服務。
