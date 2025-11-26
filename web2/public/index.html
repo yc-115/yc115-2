@@ -98,10 +98,12 @@ body.sidebar-collapsed #sidebar-toggle {
 
 /* 主區塊 */
 #main-wrapper {
-  margin-left: 270px;
-  padding: 1rem;
-  transition: background 0.3s, color 0.3s;
-  color: #4e4e4e;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  text-align: center;
+  color: white;
 }
 
 /* 卡片 */
@@ -365,7 +367,7 @@ body.dark #search input::placeholder {
   </div>
 </header>
 
-<!-- Hero Section -->
+  <!-- Hero Section -->
 <section id="hero" class="hero">
   <div class="hero-content">
     <h1 class="hero-name">YiChen Chou</h1>
@@ -375,7 +377,26 @@ body.dark #search input::placeholder {
     </p>
   </div>
 </section>
+<div id="main-wrapper">
+<div id="main-content-wrapper" class="py-4">
+        
+        <div id="weather-card" class="card-wrapper p-3" style="width: 300px;">
+            <h4><i class="fas fa-cloud-sun"></i> 即時天氣</h4>
+            <hr>
+            <div id="weather-info">
+                <p>載入中...</p>
+            </div>
+        </div>
 
+        <div id="github-card" class="card-wrapper p-3" style="flex-grow: 1;">
+            <h4><i class="fab fa-github"></i> GitHub 資訊</h4>
+            <hr>
+            <div id="github-info" class="d-flex align-items-center">
+                <p>載入中...</p>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
 /* Hero Section 基本樣式 */
 .hero {
@@ -489,6 +510,9 @@ document.addEventListener('DOMContentLoaded', function() {
     backDelay: 1000, // 打完每個字後停留時間
     loop: true
   });
+// --- 新增 API 呼叫 ---
+    fetchWeather();
+    fetchGitHubData();
 });
 </script>
 
@@ -540,6 +564,64 @@ const sidebarToggle = document.getElementById('sidebar-toggle');
 sidebarToggle.addEventListener('click', () => {
   document.body.classList.toggle('sidebar-collapsed');
 });
+</script>
+<script>
+// --- [這裡放我們之前提供的 fetchWeather 函式] ---
+function fetchWeather() {
+    fetch('/api/weather')
+        .then(async response => {
+            const text = await response.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                throw new Error(`伺服器回傳非 JSON 內容 (例如 HTML 錯誤頁面) - 狀態碼: ${response.status}`);
+            }
+
+            if (!response.ok) {
+                const errorMsg = data.error || `狀態碼: ${response.status} (${response.statusText})`;
+                throw new Error(`天氣 API 錯誤: ${errorMsg}`);
+            }
+            return data;
+        })
+        .then(data => {
+            const weatherInfo = document.getElementById('weather-info');
+            const iconUrl = `https://openweathermap.org/img/wn/${data.icon}@2x.png`; 
+            weatherInfo.innerHTML = `<div class="d-flex align-items-center justify-content-between"><h2>${data.city}</h2><img src="${iconUrl}" alt="${data.description}" width="50"></div><p class="fs-1 fw-bold mb-0">${Math.round(data.temp)}°C</p><p class="text-muted">${data.description}</p>`;
+        })
+        .catch(error => {
+            const errorMsg = error.message || "網路錯誤或伺服器未回應。";
+            document.getElementById('weather-info').innerHTML = `<p class="text-danger">無法載入天氣。<br><small>(${errorMsg})</small></p>`;
+        });
+}
+// --- [這裡放我們之前提供的 fetchGitHubData 函式] ---
+function fetchGitHubData() {
+    fetch('/api/github')
+        .then(async response => {
+            const text = await response.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                throw new Error(`伺服器回傳非 JSON 內容 (例如 HTML 錯誤頁面) - 狀態碼: ${response.status}`);
+            }
+            
+            if (!response.ok) {
+                const errorMsg = data.error || `狀態碼: ${response.status} (${response.statusText})`;
+                throw new Error(`GitHub API 錯誤: ${errorMsg}`);
+            }
+            return data;
+        })
+        .then(data => {
+            const githubInfo = document.getElementById('github-info');
+            const avatarHtml = `<img src="${data.avatar_url}" width="100" class="rounded-circle me-3" alt="GitHub Avatar">`;
+            githubInfo.innerHTML = `${avatarHtml}<div><h5 class="site-title mb-1">${data.bio || '尚未設定個人簡介'}</h5><p class="mb-1"><i class="fas fa-code-branch fa-fw"></i> Public Repos: <strong>${data.public_repos}</strong></p><p class="mb-0"><i class="fas fa-users fa-fw"></i> Followers: <strong>${data.followers}</strong></p></div>`;
+        })
+        .catch(error => {
+            const errorMsg = error.message || "網路錯誤或伺服器未回應。";
+            document.getElementById('github-info').innerHTML = `<p class="text-danger">無法載入 GitHub 資訊。<br><small>(${errorMsg})</small></p>`;
+        });
+}
 </script>
 
 </body>

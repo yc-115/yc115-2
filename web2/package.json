@@ -2,6 +2,7 @@
   "name": "web2",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:10000",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@testing-library/dom": "^10.4.1",
