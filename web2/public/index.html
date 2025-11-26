@@ -566,7 +566,14 @@ sidebarToggle.addEventListener('click', () => {
 });
 </script>
 <script>
-// --- [這裡放我們之前提供的 fetchWeather 函式] ---
+// === API 呼叫函式 (純前端直接呼叫) ===
+// !!! 由於您將後端移除，現在 API 必須在前端直接呼叫 !!!
+
+// ⚠️ 警告：金鑰已暴露，請替換成您自己的金鑰
+const OPENWEATHER_API_KEY = '403271a99e855b9de86e11cff7203b0a'; 
+const CITY = 'Taipei'; 
+const GITHUB_USERNAME = 'yc-115'; 
+// ... (接著是 fetchWeather 函式)
 function fetchWeather() {
     fetch('/api/weather')
         .then(async response => {
@@ -595,30 +602,73 @@ function fetchWeather() {
         });
 }
 // --- [這裡放我們之前提供的 fetchGitHubData 函式] ---
-function fetchGitHubData() {
-    fetch('/api/github')
+function fetchWeather() {
+    // URL 中直接包含金鑰
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=metric&appid=${OPENWEATHER_API_KEY}`;
+    
+    fetch(url)
         .then(async response => {
-            const text = await response.text();
-            let data;
-            try {
-                data = JSON.parse(text);
-            } catch (e) {
-                throw new Error(`伺服器回傳非 JSON 內容 (例如 HTML 錯誤頁面) - 狀態碼: ${response.status}`);
-            }
-            
+            const data = await response.json();
             if (!response.ok) {
-                const errorMsg = data.error || `狀態碼: ${response.status} (${response.statusText})`;
-                throw new Error(`GitHub API 錯誤: ${errorMsg}`);
+                // OpenWeather 會在錯誤時返回狀態碼和錯誤訊息
+                const errorMsg = data.message || `狀態碼: ${response.status} (${response.statusText})`;
+                throw new Error(`OpenWeather 錯誤: ${errorMsg}`);
+            }
+            return data;
+        })
+        .then(data => {
+            const weatherInfo = document.getElementById('weather-info');
+            const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`; 
+
+            // 成功顯示資料
+            weatherInfo.innerHTML = `
+                <div class="d-flex align-items-center justify-content-between">
+                    <h2>${data.name}</h2>
+                    <img src="${iconUrl}" alt="${data.weather[0].description}" width="50">
+                </div>
+                <p class="fs-1 fw-bold mb-0">${Math.round(data.main.temp)}°C</p>
+                <p class="text-muted">${data.weather[0].description}</p>
+            `;
+        })
+        .catch(error => {
+            const errorMsg = error.message || "網路錯誤或 API Key 無效。";
+            document.getElementById('weather-info').innerHTML = `<p class="text-danger">無法載入天氣。<br><small>(${errorMsg})</small></p>`;
+        });
+}
+/**
+ * 處理 GitHub API 呼叫 (直接連線 GitHub)
+ */
+function fetchGitHubData() {
+    // URL 中直接使用您的帳號
+    const url = `https://api.github.com/users/${GITHUB_USERNAME}`;
+
+    fetch(url)
+        .then(async response => {
+            const data = await response.json();
+            if (!response.ok) {
+                const errorMsg = data.message || `狀態碼: ${response.status} (${response.statusText})`;
+                throw new Error(`GitHub 錯誤: ${errorMsg}`);
             }
             return data;
         })
         .then(data => {
             const githubInfo = document.getElementById('github-info');
+            
+            // 成功顯示資料
             const avatarHtml = `<img src="${data.avatar_url}" width="100" class="rounded-circle me-3" alt="GitHub Avatar">`;
-            githubInfo.innerHTML = `${avatarHtml}<div><h5 class="site-title mb-1">${data.bio || '尚未設定個人簡介'}</h5><p class="mb-1"><i class="fas fa-code-branch fa-fw"></i> Public Repos: <strong>${data.public_repos}</strong></p><p class="mb-0"><i class="fas fa-users fa-fw"></i> Followers: <strong>${data.followers}</strong></p></div>`;
+
+            githubInfo.innerHTML = `
+                ${avatarHtml}
+                <div>
+                    <h5 class="site-title mb-1">${data.bio || '尚未設定個人簡介'}</h5>
+                    <p class="mb-1"><i class="fas fa-code-branch fa-fw"></i> Public Repos: <strong>${data.public_repos}</strong></p>
+                    <p class="mb-0"><i class="fas fa-users fa-fw"></i> Followers: <strong>${data.followers}</strong></p>
+                </div>
+            `;
+            
         })
         .catch(error => {
-            const errorMsg = error.message || "網路錯誤或伺服器未回應。";
+            const errorMsg = error.message || "網路錯誤或 API 連線失敗。";
             document.getElementById('github-info').innerHTML = `<p class="text-danger">無法載入 GitHub 資訊。<br><small>(${errorMsg})</small></p>`;
         });
 }
