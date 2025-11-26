@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
+//操控情境
 const systemPromptMap = {
   psychology: "我是心理輔助小幫手，能傾聽你的心情、給予鼓勵與建議，但不取代專業心理醫師。",
   hobby: "我是個人興趣助理，能給你音樂推薦、鉤織技巧或K-POP討論。",
