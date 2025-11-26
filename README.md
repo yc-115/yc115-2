@@ -20,15 +20,28 @@
 
 ## ⚙️ 安裝與執行方式
 
-1. **安裝相依套件**
+1. **克隆專案**
+
+```bash
+git clone https://github.com/yc-115/yc115-2.git
+```
+
+2. **進入專案資料夾**
+
+```bash
+cd yc115-2
+cd web2
+```
+
+3. **安裝相依套件**
 
 ```bash
 npm install
 ```
 
-2. **啟動專案**
+4. **啟動專案**
 
-```bash
+```bash 
 npm start
 ```
 
@@ -58,11 +71,11 @@ npm start
 
 ## 📸 畫面截圖
 
-首頁介面
-[首頁截圖](./scsh/Screenshot-home.png)
+【首頁介面】
+![首頁截圖](./scsh/Screenshot-home.png)
 
-AI 聊天區
-[聊天截圖](./scsh/Screenshot-ai.png)
+【AI 聊天區】
+![聊天截圖](./scsh/Screenshot-ai.png)
 
 ---
 
